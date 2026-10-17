@@ -117,52 +117,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\IssueItem.cs" />
-    <Compile Include="Models\IssueSummary.cs" />
-    <Compile Include="BrushKeyConverter.cs" />
-    <Compile Include="Elevation.cs" />
-    <Compile Include="UiThread.cs" />
-    <Compile Include="Services\AppState.cs" />
-    <Compile Include="Services\ShellRunner.cs" />
-    <Compile Include="Services\ErrorReporter.cs" />
-    <Compile Include="Services\BackupRestore.cs" />
-    <Compile Include="Services\RegistryBackup.cs" />
-    <Compile Include="Services\ServiceHelper.cs" />
-    <Compile Include="Services\WinSxSRestore.cs" />
-    <Compile Include="Services\SystemCompat.cs" />
-    <Compile Include="Services\UpdateFiles.cs" />
-    <Compile Include="Services\DiagnosticService.cs" />
-    <Compile Include="Services\RepairService.cs" />
-    <Compile Include="Services\Detection\ICheckItem.cs" />
-    <Compile Include="Pages\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pages\DetectingPage.xaml.cs">
-      <DependentUpon>DetectingPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pages\RepairingPage.xaml.cs">
-      <DependentUpon>RepairingPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pages\DonePage.xaml.cs">
-      <DependentUpon>DonePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pages\FatalErrorWindow.xaml.cs">
-      <DependentUpon>FatalErrorWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <!--
+      自动包含所有 C# 源文件：新增文件无需再手动登记到本工程。
+      必须显式排除 obj/ 与 bin/：obj 下由 XAML 生成的 *.g.cs
+      （App.g.cs、MainWindow.g.cs、Pages/*.g.cs 等）若被一并编译，
+      会与手写代码产生重复类型定义。bin/ 仅为输出目录，不应参与编译。
+    -->
+    <Compile Include="**\*.cs" Exclude="obj\**\*.cs;bin\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
