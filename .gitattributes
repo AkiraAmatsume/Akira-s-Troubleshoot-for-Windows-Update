@@ -1,0 +1,30 @@
+# 换行符统一策略：
+# 仓库内统一以 LF 存储；工作区检出时由 git 按平台转换。
+# 这样跨部门/跨机器协作时不会因 CRLF 差异产生无意义的 diff。
+
+# 默认所有文本文件自动判定，仓库内规范化为 LF
+* text=auto eol=lf
+
+# 源码与工程文件：明确按文本处理
+*.cs       text eol=lf
+*.xaml     text eol=lf
+*.csproj   text eol=lf
+*.manifest text eol=lf
+*.config   text eol=lf
+*.md       text eol=lf
+*.txt      text eol=lf
+*.ps1      text eol=crlf
+*.gitignore    text eol=lf
+*.gitattributes text eol=lf
+
+# pre-commit 钩子是 sh 脚本，必须为 LF（否则 shebang/执行可能出错）
+scripts/pre-commit text eol=lf
+
+# 二进制文件：不做任何换行转换
+*.exe   binary
+*.dll   binary
+*.pdb   binary
+*.ico   binary
+*.png   binary
+*.jpg   binary
+*.bmp   binary
