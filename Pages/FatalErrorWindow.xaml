@@ -1,0 +1,83 @@
+<Window x:Class="WindowsUpdateFixer.Views.FatalErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Akira's Troubleshoot"
+        Width="720" Height="640"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="{DynamicResource SurfaceBrush}"
+        Foreground="{DynamicResource OnSurfaceBrush}"
+        FontFamily="{DynamicResource Md3Font}">
+    <Window.Resources>
+        <!-- 详情分组：标签 + 内容 -->
+        <Style x:Key="DetailLabel" TargetType="TextBlock" BasedOn="{StaticResource Md3Label}">
+            <Setter Property="Margin" Value="0,16,0,4" />
+            <Setter Property="Foreground" Value="{DynamicResource OnSurfaceVariantBrush}" />
+        </Style>
+        <Style x:Key="DetailValue" TargetType="TextBlock" BasedOn="{StaticResource Md3Body}">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{DynamicResource OnSurfaceBrush}" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="28,24,28,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题区 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Border Width="48" Height="48" CornerRadius="24"
+                    Background="{DynamicResource WarningContainerBrush}"
+                    VerticalAlignment="Center">
+                <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="22"
+                           Foreground="{DynamicResource WarningBrush}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+                <TextBlock Text="操作未能完成" Style="{StaticResource Md3Headline}" />
+                <TextBlock Text="出现了错误，可查看下方详情，或尝试恢复注册表策略备份。"
+                           Style="{StaticResource Md3Body}"
+                           Foreground="{DynamicResource OnSurfaceVariantBrush}"
+                           Margin="0,4,0,0" TextWrapping="Wrap" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- 详情区（可滚动） -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      Margin="0,16,0,0">
+            <StackPanel>
+                <TextBlock Text="错误代码" Style="{StaticResource DetailLabel}" />
+                <TextBlock x:Name="CodeText" Style="{StaticResource DetailValue}" />
+
+                <TextBlock Text="位置" Style="{StaticResource DetailLabel}" />
+                <TextBlock x:Name="LocationText" Style="{StaticResource DetailValue}" />
+
+                <TextBlock Text="原因" Style="{StaticResource DetailLabel}" />
+                <TextBlock x:Name="ReasonText" Style="{StaticResource DetailValue}" />
+
+                <TextBlock Text="调用栈" Style="{StaticResource DetailLabel}" />
+                <Border Background="{DynamicResource SurfaceContainerBrush}" CornerRadius="10" Padding="12,10">
+                    <TextBlock x:Name="StackText" Style="{StaticResource DetailValue}"
+                               FontFamily="Consolas" FontSize="12" />
+                </Border>
+
+                <TextBlock Text="建议" Style="{StaticResource DetailLabel}" />
+                <TextBlock x:Name="SolutionText" Style="{StaticResource DetailValue}" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- 底部按钮 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+            <Button x:Name="RestoreButton" Content="恢复备份并返回"
+                    Style="{StaticResource Md3OutlinedButton}"
+                    Margin="0,0,12,0" Click="Restore_Click" />
+            <Button Content="返回欢迎页"
+                    Style="{StaticResource Md3FilledButton}"
+                    Click="Welcome_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

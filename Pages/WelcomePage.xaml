@@ -1,0 +1,47 @@
+<UserControl x:Class="WindowsUpdateFixer.Pages.WelcomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="48,0">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Border Width="72" Height="72" CornerRadius="20"
+                    Background="{StaticResource PrimaryContainerBrush}"
+                    HorizontalAlignment="Left">
+                <TextBlock Text="&#xE895;" FontFamily="Segoe MDL2 Assets" FontSize="34"
+                           Foreground="{StaticResource PrimaryBrush}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <TextBlock Text="Akira's Troubleshoot for Windows Update" Style="{StaticResource Md3Display}" FontSize="30" Margin="0,28,0,0" />
+            <TextBlock Text="修复因各类精简工具导致 Windows 更新组件无法使用的问题。"
+                       Style="{StaticResource Md3Body}" FontSize="15" MaxWidth="440"
+                       Margin="0,12,0,0" />
+
+            <Button x:Name="StartButton" Content="开始检测" Margin="0,36,0,0"
+                    HorizontalAlignment="Left" Style="{StaticResource Md3FilledButton}"
+                    Click="Start_Click" />
+
+            <!-- 提权提示 -->
+            <Border Margin="0,16,0,0" MaxWidth="460" HorizontalAlignment="Left"
+                    Background="{StaticResource WarningContainerBrush}" CornerRadius="12"
+                    Padding="14,12">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE72E;" FontFamily="Segoe MDL2 Assets"
+                               FontSize="16" Margin="0,1,10,0" VerticalAlignment="Top"
+                               Foreground="{StaticResource WarningBrush}" />
+                    <TextBlock MaxWidth="400"
+                               Style="{StaticResource Md3Label}" FontSize="13"
+                               Foreground="{StaticResource WarningBrush}">
+                        <Run Text="此功能需要管理员权限。" />
+                        <LineBreak />
+                        <Run Text="点击后会出现 Windows 的例行权限提示（UAC），请放心允许 —— Akira's Troubleshoot 不会进行任何侵害用户利益的行为。" />
+                    </TextBlock>
+        </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,20">
+            <TextBlock Text="Copyright 狐妖萌娘（Akira Amatsume）" Style="{StaticResource Md3Label}" />
+            <TextBlock Text="AkiraAmatsume@outlook.com" Style="{StaticResource Md3Label}" Margin="0,2,0,0" />
+        </StackPanel>
+    </Grid>
+</UserControl>
+

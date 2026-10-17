@@ -1,0 +1,13 @@
+## 构建产物
+bin/
+obj/
+
+## 用户/IDE 文件
+.vs/
+*.user
+*.suo
+*.userprefs
+
+## 调试/发布残留
+*.pdb
+*.baml

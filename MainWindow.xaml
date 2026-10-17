@@ -1,0 +1,47 @@
+<Window x:Class="WindowsUpdateFixer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Akira's Troubleshoot for Windows Update"
+        Height="720" Width="600"
+        MinHeight="600" MinWidth="540"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SurfaceBrush}"
+        FontFamily="{StaticResource Md3Font}"
+        TextOptions.TextFormattingMode="Display">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶栏 -->
+        <Border Grid.Row="0" Background="{StaticResource SurfaceBrush}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="24,0">
+                <TextBlock Text="&#xE895;" FontFamily="Segoe MDL2 Assets" FontSize="22"
+                           Foreground="{StaticResource PrimaryBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="Akira's Troubleshoot" Margin="12,0,0,0"
+                           FontSize="17" FontWeight="SemiBold"
+                           Foreground="{StaticResource OnSurfaceBrush}" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <!-- 页面容器 -->
+        <ContentControl x:Name="PageHost" Grid.Row="1" />
+
+        <!-- 底部状态栏：平时显示就绪，非致命错误显示最近一条通知 -->
+        <Border Grid.Row="2" Background="{StaticResource SurfaceContainerBrush}"
+                BorderBrush="{StaticResource OutlineBrush}" BorderThickness="0,1,0,0"
+                Padding="24,8">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="StatusGlyph" Text="&#xE73E;" FontFamily="Segoe MDL2 Assets"
+                           FontSize="14" Foreground="{StaticResource SuccessBrush}"
+                           VerticalAlignment="Center" />
+                <TextBlock x:Name="StatusText" Text="就绪" Margin="8,0,0,0"
+                           FontSize="12" Foreground="{StaticResource OnSurfaceVariantBrush}"
+                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+

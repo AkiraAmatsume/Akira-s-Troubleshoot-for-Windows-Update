@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    ============================================================================
+    命名说明 / Naming notes
+    ============================================================================
+    对外产品名称 (Product name):
+        Akira's Troubleshoot for Windows Update
+        短名 (Short name): Akira's Troubleshoot
+        Copyright 狐妖萌娘（Akira Amatsume）
+
+    重要：Akira's Troubleshoot 是系列品牌，本工程只是其中一个子项目（专修
+    Windows Update）。因此工程文件 / 命名空间仍沿用历史内部名
+    "WindowsUpdateFixer"，以便未来在同一系列下扩展其它子项目时不产生歧义。
+
+    - 物理文件名 WindowsUpdateFixer.csproj、RootNamespace=WindowsUpdateFixer
+      均为内部工程标识，不对最终用户可见，保持原样。
+    - AssemblyName 使用合法标识符 AkiraTroubleshootForWindowsUpdate（程序集身份）；
+      生成后再由 AfterBuild 目标把产物重命名为
+      "Akira's Troubleshoot for Windows Update.exe"，
+      明确表示本子项目专修 Windows Update。
+
+    Names are kept internal on purpose: the product brand "Akira's Troubleshoot"
+    covers more than Windows Update; this project is only one sub-project.
+    ============================================================================
+  -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A3F1C2E-4D5B-4E6A-9C1D-2B3E4F5A6C7D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <!-- 内部命名空间，保留历史名（对用户不可见）。详见文件顶部命名说明。 -->
+    <RootNamespace>WindowsUpdateFixer</RootNamespace>
+    <!-- 程序集标识名（必须是合法标识符，不能含空格/撇号）。
+         最终 exe 文件名由下方 AfterBuild 目标重命名为
+         "Akira's Troubleshoot for Windows Update.exe"（详见文件顶部命名说明）。 -->
+    <AssemblyName>AkiraTroubleshootForWindowsUpdate</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <!--
+      架构固定为 x86，请勿改为 AnyCPU / x64。
+      理由与约束见 code/DESIGN-NOTES.txt。
+      注意：Platform 为 AnyCPU 时若缺少 PlatformTarget，产物在 64 位系统上会以
+      x64 运行，从而绕过本工具赖以成立的前提；因此必须显式声明 x86，并关闭
+      Prefer32Bit（Prefer32Bit 仅对 AnyCPU 生效，此处显式关闭以防后续误改）。
+    -->
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <LangVersion>5</LangVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Md3Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DetectingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RepairingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\DonePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FatalErrorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\IssueItem.cs" />
+    <Compile Include="Models\IssueSummary.cs" />
+    <Compile Include="BrushKeyConverter.cs" />
+    <Compile Include="Elevation.cs" />
+    <Compile Include="UiThread.cs" />
+    <Compile Include="Services\AppState.cs" />
+    <Compile Include="Services\ShellRunner.cs" />
+    <Compile Include="Services\ErrorReporter.cs" />
+    <Compile Include="Services\BackupRestore.cs" />
+    <Compile Include="Services\RegistryBackup.cs" />
+    <Compile Include="Services\ServiceHelper.cs" />
+    <Compile Include="Services\WinSxSRestore.cs" />
+    <Compile Include="Services\SystemCompat.cs" />
+    <Compile Include="Services\UpdateFiles.cs" />
+    <Compile Include="Services\DiagnosticService.cs" />
+    <Compile Include="Services\RepairService.cs" />
+    <Compile Include="Pages\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\DetectingPage.xaml.cs">
+      <DependentUpon>DetectingPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\RepairingPage.xaml.cs">
+      <DependentUpon>RepairingPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\DonePage.xaml.cs">
+      <DependentUpon>DonePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\FatalErrorWindow.xaml.cs">
+      <DependentUpon>FatalErrorWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--
+    构建后将输出重命名为对外品牌文件名：
+      Akira's Troubleshoot for Windows Update.exe
+    程序集身份（AssemblyName）保持合法标识符，文件名单独控制。
+  -->
+  <Target Name="RenameOutputExe" AfterTargets="Build">
+    <PropertyGroup>
+      <__SrcExe>$(TargetPath)</__SrcExe>
+      <__DstExe>$(TargetDir)Akira's Troubleshoot for Windows Update.exe</__DstExe>
+    </PropertyGroup>
+    <Copy SourceFiles="$(__SrcExe)" DestinationFiles="$(__DstExe)" OverwriteReadOnlyFiles="true" Condition="Exists('$(__SrcExe)')" />
+    <Delete Files="$(__SrcExe)" Condition="Exists('$(__DstExe)') And !('$(__SrcExe)' == '$(__DstExe)')" />
+  </Target>
+</Project>
