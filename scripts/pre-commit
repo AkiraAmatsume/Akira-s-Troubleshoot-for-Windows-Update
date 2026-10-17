@@ -1,0 +1,20 @@
+#!/bin/sh
+# git pre-commit 钩子：提交前编译，失败则阻止提交。
+#
+# 启用方式（在仓库根目录执行）：
+#   cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+#
+# 说明：本仓库工作区根即 code/ 目录，build.ps1 与之同级。
+
+# 通过 PowerShell 调用 build.ps1（子进程），确保退出码能正确传出。
+# git 执行钩子时的当前目录即工作区根（本仓库为 code/），build.ps1 与之同级。
+powershell -NoProfile -ExecutionPolicy Bypass -File "./build.ps1"
+
+code=$?
+if [ $code -ne 0 ]; then
+    echo ""
+    echo "提交被阻止：编译未通过。请修复错误后重试。"
+    exit 1
+fi
+
+exit 0
